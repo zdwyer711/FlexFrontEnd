@@ -48,7 +48,7 @@ const getNewUserToken = async () => {
         await setUserData('accessToken', accessToken.toString());
         await setUserData('refreshToken', refreshToken.toString());
         await setUserData('expirationTime', expirationTime.toString());
-        await postNewUser();
+        //await postNewUser();
       }
 }
 

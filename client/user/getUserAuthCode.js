@@ -22,8 +22,8 @@ const getUserAuthCode = async () => {
         '&redirect_uri=' +
         encodeURIComponent(redirectUrl),
     })
-    console.log("=======Result Auth Code========");
-    console.log(result.params.code);
+    console.log("=======Result Auth========");
+    console.log(result.params);
     console.log("===============================");
     return result.params.code;
   } catch (err) {

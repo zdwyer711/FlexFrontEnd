@@ -9,7 +9,7 @@ const clearLocalUserData = require('./clearLocalUserData');
 
 const userRefreshToken = async () => {
   try {
-    await clearLocalUserData('refreshToken');
+    //await clearLocalUserData('refreshToken');
     const refreshToken = await getUserData('refreshToken');
     let refreshTokenEndpoint = 'http://192.168.1.65:3000/getTokens/api/spotify-tokens?refreshToken=' + refreshToken;
 
