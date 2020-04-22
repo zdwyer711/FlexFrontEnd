@@ -6,7 +6,6 @@ import {
   Button,
 } from 'react-native';
 import { Feather as Icon } from "@expo/vector-icons";
-import { createStackNavigator } from '@react-navigation/stack';
 
 class MiniPlayer extends Component {
 

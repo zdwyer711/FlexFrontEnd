@@ -3,62 +3,77 @@ import {
   View,
   Text,
   StyleSheet,
-  ActivityIndicator
+  ActivityIndicator,
+  Easing
 } from 'react-native';
 import MiniPlayer from "./MiniPlayer";
+import PlayerScreen from "./PlayerScreen";
+import HomeScreen from "./HomeScreen";
+import { createStackNavigator,
+  TransitionPresets,
+  CardStyleInterpolators} from '@react-navigation/stack';
 
-const MINIMIZED_PLAYER_HEIGHT = 42;
 const getUserData = require('../client/user/getUserData');
 const userRefreshToken = require('../client/user/userRefreshToken');
 const clearLocalUserData = require('../client/user/clearLocalUserData');
 
 class HomeStackScreen extends Component {
-
-  state = {
-        accessTokenAvailable: []
-  };
-
-  async componentDidMount() {
-    //await clearLocalUserData('expirationTime');
-    const tokenExpirationTime = await getUserData('expirationTime');
-    console.log("======Token Expiration Time=========");
-    console.log(tokenExpirationTime);
-
-    if (!tokenExpirationTime || new Date().getTime() > tokenExpirationTime) {
-      await userRefreshToken();
-      // alert('RefreshToken() has been reached and refreshed!');
-    } else {
-      this.setState({ accessTokenAvailable: true });
-      alert('Access Token is Available!');
-    }
-  }
-
   render() {
+    const HomeStack = createStackNavigator();
     return(
-        <View style={styles.container}>
-            <ActivityIndicator size='large' />
-            <View style={styles.miniPlayerContainer}>
-              <MiniPlayer />
-            </View>
-        </View>
+      <HomeStack.Navigator>
+          <HomeStack.Screen name="Home" component={HomeScreen}
+              options={{
+                  headerStyle: {
+                    backgroundColor: '#272829',
+                  },
+                  transitionSpec: {
+                    open: config,
+                    close: closeConfig
+                  },
+                  cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+                  headerTintColor: 'white',
+                  headerTransparent: true
+              }}
+          />
+          <HomeStack.Screen name="Player" component={PlayerScreen}
+              options={{
+                  headerStyle: {
+                    backgroundColor: '#272829',
+                  },
+                  transitionSpec: {
+                    open: config,
+                    close: closeConfig
+                  },
+                  cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+                  headerTintColor: 'white',
+                  headerShown: false,
+                  headerTransparent: true
+              }}
+          />
+      </HomeStack.Navigator>
     );
   }
 }
 
 export default HomeStackScreen;
 
-const styles = StyleSheet.create({
-   container: {
-     flex: 1,
-     alignItems: 'center',
-     justifyContent: 'center',
-     backgroundColor: '#02071a'
-   },
-   miniPlayerContainer: {
-              position: "absolute",
-              bottom: 0,
-              left: 0,
-              right: 0,
-              height: MINIMIZED_PLAYER_HEIGHT
-   }
-});
+const closeConfig = {
+  animation: 'timing',
+  config: {
+    duration: 500,
+    easing:Easing.cubic
+  }
+};
+
+const config = {
+  animation: 'spring',
+  config: {
+    stiffness: 1000,
+    damping: 300,
+    mass: 3,
+    overshootClamping: false,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.02
+  }
+};
