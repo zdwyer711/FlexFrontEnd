@@ -10,13 +10,41 @@ import {
   StyleSheet,
   Dimensions
 } from 'react-native';
+import { Audio } from 'expo-av';
+
+
 
 class PlayerScreen extends Component {
+
+  state = {
+      totalLength: 1,
+      currentPosition: 0,
+      selectedTrack: 0,
+      repeatOn: false,
+      shuffleOn: false,
+  };
+
+  componentDidMount() {
+    const spotify = require('https://sdk.scdn.co/spotify-player.js');
+    console.log(spotify);
+    alert(spotify);
+  }
+
   render() {
     const track = {
           title: 'Ballin\'(With Roddy Ricch)',
           artist:'Mustard,Roddy Ricch'
     }
+
+    // const soundObject = new Audio.Sound();
+    // try {
+    //   soundObject.loadAsync({uri: 'spotify:track:3QzAOrNlsabgbMwlZt7TAY'});
+    //   soundObject.playAsync();
+    //   // Your sound is playing!
+    // } catch (error) {
+    //   // An error occurred!
+    // }
+
     const { navigation } = this.props;
     return(
         <View style={styles.container}>
@@ -25,6 +53,7 @@ class PlayerScreen extends Component {
             />
             <AlbumArt url={require('./img/Ballin-Album-Art.png')} />
             <TrackDetails title={track.title} artist={track.artist} />
+            <PlayerControls/>
         </View>
     );
   }
