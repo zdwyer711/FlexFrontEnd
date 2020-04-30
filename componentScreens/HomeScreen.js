@@ -22,28 +22,6 @@ const clearLocalUserData = require('../client/user/clearLocalUserData');
 const MINIMIZED_PLAYER_HEIGHT = 42;
 const SNAP_TOP = 0;
 
-// const config = {
-//   damping: 15,
-//   mass: 1,
-//   stiffness: 150,
-//   overshootClamping: false,
-//   restSpeedThreshold: 0.1,
-//   restDisplacementThreshold: 0.1
-// };
-// const {
-//   Clock,
-//   Value,
-//   cond,
-//   useCode,
-//   set,
-//   block,
-//   not,
-//   clockRunning,
-//   interpolate,
-//   diffClamp,
-//   Extrapolate
-// } = Animated;
-
 class HomeStackScreen extends Component {
 
   state = {
@@ -51,7 +29,7 @@ class HomeStackScreen extends Component {
   };
 
   async componentDidMount() {
-    //await clearLocalUserData('expirationTime');
+    await clearLocalUserData('expirationTime');
     const tokenExpirationTime = await getUserData('expirationTime');
     console.log("======Token Expiration Time=========");
     console.log(tokenExpirationTime);
@@ -65,21 +43,20 @@ class HomeStackScreen extends Component {
     }
   }
 
-  render() {
+render() {
    // Get it from props
    const { navigation } = this.props;
-
    return(
-         <View style={styles.container}>
+          <View style={styles.container}>
              <ActivityIndicator size='large' />
              <View style={styles.miniPlayerContainer}>
              <TouchableOpacity
                   style={styles.miniPlayerButton}
                   onPress={() => navigation.navigate('Player')}
              >
-               <MiniPlayer />
-               </TouchableOpacity>
-             </View>
+              <MiniPlayer />
+             </TouchableOpacity>
+            </View>
          </View>
        );
     }
