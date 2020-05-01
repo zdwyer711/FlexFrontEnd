@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 'react-native';
+import { Divider } from 'react-native-elements';
 import Svg, {Image, Circle, ClipPath} from 'react-native-svg';
 import Animated, { Easing } from 'react-native-reanimated';
 import { TapGestureHandler, State } from 'react-native-gesture-handler';
@@ -177,7 +178,7 @@ class LoginScreen extends Component {
             zIndex:this.textInputZindex,
             opacity:this.textInputOpacity,
             transform:[{translateY:this.textInputY}],
-            height:height/1.6,
+            height:height/1.55,
             ...StyleSheet.absoluteFill,
             top:null,
             justifyContent:'center',
@@ -194,6 +195,12 @@ class LoginScreen extends Component {
                 </Animated.Text>
               </Animated.View>
             </TapGestureHandler>
+
+            <Animated.View style={styles.spotifyButton}>
+              <Text style={{fontSize:20,fontWeight:'bold'}}>CONTINUE WITH SPOTIFY</Text>
+            </Animated.View>
+
+            <Text style={styles.textRegister}>       ────────── Or ─────────</Text>
 
             <TextInput
               placeholder="PHONE#"
@@ -286,12 +293,30 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2
   },
   textInput: {
-    height: 50,
+    height: 40,
     borderRadius: 25,
     borderWidth: 0.5,
     marginHorizontal: 20,
     paddingLeft: 10,
     marginVertical: 5,
     borderColor: 'rgba(0,0,0,0.2)',
+  },
+  spotifyButton: {
+    backgroundColor: '#1DB954',
+    height: 50,
+    marginHorizontal: 20,
+    borderRadius: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 10,
+    shadowOffset:{
+      width: 2,
+      height: 2
+    },
+    shadowColor: 'black',
+    shadowOpacity: 0.2
+  },
+  textRegister: {
+    paddingLeft: 10
   }
 });
