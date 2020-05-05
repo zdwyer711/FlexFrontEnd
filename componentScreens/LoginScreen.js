@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 'react-native';
 import Svg, {Image, Circle, ClipPath} from 'react-native-svg';
 import Animated, { Easing } from 'react-native-reanimated';
 import { TapGestureHandler, State } from 'react-native-gesture-handler';
@@ -119,6 +119,7 @@ class LoginScreen extends Component {
 
   }
   render() {
+    const { navigation } = this.props;
     return (
       <View
         style={{
@@ -205,7 +206,9 @@ class LoginScreen extends Component {
               placeholderTextColor="black"
             />
             <Animated.View style={styles.button}>
+              <TouchableOpacity onPress={() => navigation.navigate('TabIndex')}>
               <Text style={{fontSize:20,fontWeight:'bold'}}>SIGN IN</Text>
+              </TouchableOpacity>
             </Animated.View>
           </Animated.View>
         </View>

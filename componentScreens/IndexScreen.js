@@ -4,6 +4,8 @@ import { Divider } from 'react-native-elements';
 import Svg, {Image, Circle, ClipPath} from 'react-native-svg';
 import Animated, { Easing } from 'react-native-reanimated';
 import { TapGestureHandler, State } from 'react-native-gesture-handler';
+
+const setUserData = require('../client/user/setUserData');
 const { width, height } = Dimensions.get('window');
 const closeButtonTop = -height / 2 ;
 const {
@@ -53,6 +55,15 @@ function runTiming(clock, value, dest) {
   ]);
 }
 class LoginScreen extends Component {
+
+  state = {
+      phoneNumber: '',
+      email:'',
+      userName:'',
+      password:'',
+      confirmPassword:'',
+  };
+
   constructor() {
     super();
 
@@ -119,6 +130,31 @@ class LoginScreen extends Component {
     });
 
   }
+
+  handlePhoneChange = (value) => {
+    this.setState({ phoneNumber: value});
+  }
+
+  handleEmailChange = (value) => {
+    this.setState({ email: value });
+  }
+
+  handleUserNameChange = (value) => {
+    this.setState({ userName: value });
+  }
+
+  handlePasswordChange = (value) => {
+    this.setState({ password: value })
+  }
+
+  handleConfirmPasswordChange = (value) => {
+    this.setState({ confirmPassword: value });
+  }
+
+  handleSubmitPress = () => {
+    console.log(this.state);
+  }
+
   render() {
     const { navigation } = this.props;
     return (
@@ -206,26 +242,36 @@ class LoginScreen extends Component {
               placeholder="PHONE#"
               style={styles.textInput}
               placeholderTextColor="black"
+              value={this.state.phoneNumber}
+              onChangeText={this.handlePhoneChange}
             />
             <TextInput
               placeholder="email#"
               style={styles.textInput}
               placeholderTextColor="black"
+              value={this.state.email}
+              onChangeText={this.handleEmailChange}
             />
             <TextInput
               placeholder="USER"
               style={styles.textInput}
               placeholderTextColor="black"
+              value={this.state.userName}
+              onChangeText={this.handleUserNameChange}
             />
             <TextInput
               placeholder="PASSWORD"
               style={styles.textInput}
               placeholderTextColor="black"
+              value={this.state.password}
+              onChangeText={this.handlePasswordChange}
             />
             <TextInput
               placeholder="CONFIRM PASSWORD"
               style={styles.textInput}
               placeholderTextColor="black"
+              value={this.state.confirmPassword}
+              onChangeText={this.handleConfirmPasswordChange}
             />
             <Animated.View style={styles.button}>
               <Text style={{fontSize:20,fontWeight:'bold'}}>REGISTER</Text>

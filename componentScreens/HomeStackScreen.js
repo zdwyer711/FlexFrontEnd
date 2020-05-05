@@ -6,9 +6,10 @@ import {
   ActivityIndicator,
   Easing
 } from 'react-native';
-import MiniPlayer from "./MiniPlayer";
+//import MiniPlayer from "./MiniPlayer";
 import PlayerScreen from "./PlayerScreen";
 import HomeScreen from "./HomeScreen";
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator,
   TransitionPresets,
   CardStyleInterpolators} from '@react-navigation/stack';

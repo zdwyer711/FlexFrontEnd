@@ -4,7 +4,7 @@ const setUserData = async (userKey, value) => {
   // console.log("Secure Store");
   // console.log(SecureStore.setItemAsync);
   //SecureStore.setItemAsync('userId','test');
-  console.log("getUserData() script!");
+  console.log("setUserData() script!");
   console.log(userKey);
   const strVal = value.toString();
   try{

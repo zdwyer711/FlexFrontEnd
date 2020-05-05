@@ -8,9 +8,12 @@ import {
 import { createStackNavigator,
   TransitionPresets,
   CardStyleInterpolators} from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-//import TabIndex from './TabIndex';
+import TabIndex from './TabIndex';
 import TestView from './TestView';
 import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
@@ -19,6 +22,7 @@ import IndexScreen from './IndexScreen';
 class AuthFlowIndex extends Component {
   render() {
           const AuthStack = createStackNavigator();
+          const Tab = createBottomTabNavigator();
           return(
             <NavigationContainer>
               <AuthStack.Navigator>
@@ -50,7 +54,7 @@ class AuthFlowIndex extends Component {
                           headerTransparent: true
                       }}
                   />
-                  <AuthStack.Screen name="Sign Up" component={SignUpScreen}
+                  <AuthStack.Screen name="TabIndex" component={TabIndex}
                       options={{
                           headerStyle: {
                             backgroundColor: '#272829',
@@ -66,6 +70,7 @@ class AuthFlowIndex extends Component {
                       }}
                   />
               </AuthStack.Navigator>
+
             </NavigationContainer>
           );
   }

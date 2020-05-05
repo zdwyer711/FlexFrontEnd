@@ -16,7 +16,6 @@ const Tab = createBottomTabNavigator();
 class TabIndex extends Component {
   render() {
     return(
-      <NavigationContainer>
       <Tab.Navigator
       screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
@@ -35,21 +34,19 @@ class TabIndex extends Component {
               // You can return any component that you like here!
               return <Ionicons name={iconName} size={size} color={color} />;
             },
-
           })}
           tabBarOptions={{
             activeTintColor: '#a12213',
             inactiveTintColor: 'gray',
             style: {
               backgroundColor: '#272829',
-            }
+            },
           }}
       >
            <Tab.Screen name="Home" component={HomeStackScreen} />
            <Tab.Screen name="Stations" component={StationsStackScreen} />
            <Tab.Screen name="Settings" component={SettingsStackScreen} />
       </Tab.Navigator>
-      </NavigationContainer>
     );
   }
 }

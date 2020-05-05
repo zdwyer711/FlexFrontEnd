@@ -10,9 +10,7 @@ import {
 } from 'react-native';
 import MiniPlayer from "./MiniPlayer";
 import { useNavigation } from '@react-navigation/native';
-import Animated from "react-native-reanimated";
 import { PanGestureHandler, State } from "react-native-gesture-handler";
-import { clamp, onGestureEvent, timing, withSpring } from "react-native-redash";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 
 const getUserData = require('../client/user/getUserData');
@@ -22,7 +20,7 @@ const clearLocalUserData = require('../client/user/clearLocalUserData');
 const MINIMIZED_PLAYER_HEIGHT = 42;
 const SNAP_TOP = 0;
 
-class HomeStackScreen extends Component {
+class HomeScreen extends Component {
 
   state = {
         accessTokenAvailable: []
@@ -62,7 +60,7 @@ render() {
     }
 }
 
-export default HomeStackScreen;
+export default HomeScreen;
 
 const styles = StyleSheet.create({
    container: {
