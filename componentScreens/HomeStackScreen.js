@@ -14,10 +14,6 @@ import { createStackNavigator,
   TransitionPresets,
   CardStyleInterpolators} from '@react-navigation/stack';
 
-const getUserData = require('../client/user/getUserData');
-const userRefreshToken = require('../client/user/userRefreshToken');
-const clearLocalUserData = require('../client/user/clearLocalUserData');
-
 class HomeStackScreen extends Component {
   render() {
     const HomeStack = createStackNavigator();

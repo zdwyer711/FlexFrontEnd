@@ -13,32 +13,32 @@ import { useNavigation } from '@react-navigation/native';
 import { PanGestureHandler, State } from "react-native-gesture-handler";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 
-const getUserData = require('../client/user/getUserData');
-const userRefreshToken = require('../client/user/userRefreshToken');
-const clearLocalUserData = require('../client/user/clearLocalUserData');
+// const getUserData = require('../client/user/getUserData');
+// const userRefreshToken = require('../client/user/userRefreshToken');
+// const clearLocalUserData = require('../client/user/clearLocalUserData');
 
 const MINIMIZED_PLAYER_HEIGHT = 42;
 const SNAP_TOP = 0;
 
 class HomeScreen extends Component {
 
-  state = {
-        accessTokenAvailable: []
-  };
+  // state = {
+  //       accessTokenAvailable: []
+  // };
 
   async componentDidMount() {
-    await clearLocalUserData('expirationTime');
-    const tokenExpirationTime = await getUserData('expirationTime');
-    console.log("======Token Expiration Time=========");
-    console.log(tokenExpirationTime);
-
-    if (!tokenExpirationTime || new Date().getTime() > tokenExpirationTime) {
-      await userRefreshToken();
-      // alert('RefreshToken() has been reached and refreshed!');
-    } else {
-      this.setState({ accessTokenAvailable: true });
-      alert('Access Token is Available!');
-    }
+    // await clearLocalUserData('expirationTime');
+    // const tokenExpirationTime = await getUserData('expirationTime');
+    // console.log("======Token Expiration Time=========");
+    // console.log(tokenExpirationTime);
+    //
+    // if (!tokenExpirationTime || new Date().getTime() > tokenExpirationTime) {
+    //   await userRefreshToken();
+    //   // alert('RefreshToken() has been reached and refreshed!');
+    // } else {
+    //   this.setState({ accessTokenAvailable: true });
+    //   alert('Access Token is Available!');
+    // }
   }
 
 render() {

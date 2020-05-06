@@ -5,6 +5,7 @@ import Svg, {Image, Circle, ClipPath} from 'react-native-svg';
 import Animated, { Easing } from 'react-native-reanimated';
 import { TapGestureHandler, State } from 'react-native-gesture-handler';
 
+const expirationTimeCheck = require('../client/user/spotify-auth/expirationTimeCheck');
 const setUserData = require('../client/user/setUserData');
 const { width, height } = Dimensions.get('window');
 const closeButtonTop = -height / 2 ;
@@ -131,28 +132,39 @@ class LoginScreen extends Component {
 
   }
 
-  handlePhoneChange = (value) => {
+  async componentDidMount() {
+    //const expirationCheck = await expirationTimeCheck();
+    //this.handleContinueWithSpotify(navigation);
+  }
+  handlePhoneChange = async (value) => {
     this.setState({ phoneNumber: value});
   }
 
-  handleEmailChange = (value) => {
+  handleEmailChange = async (value) => {
     this.setState({ email: value });
   }
 
-  handleUserNameChange = (value) => {
+  handleUserNameChange = async (value) => {
     this.setState({ userName: value });
   }
 
-  handlePasswordChange = (value) => {
+  handlePasswordChange = async (value) => {
     this.setState({ password: value })
   }
 
-  handleConfirmPasswordChange = (value) => {
+  handleConfirmPasswordChange = async (value) => {
     this.setState({ confirmPassword: value });
   }
 
-  handleSubmitPress = () => {
+  handleSubmitPress = async () => {
     console.log(this.state);
+  }
+
+  handleContinueWithSpotify = async () => {
+      const expirationCheck = await expirationTimeCheck();
+      //console.log(navigation);
+      this.props.navigation.navigate('TabIndex');
+      //navigation.navigate('TabIndex');
   }
 
   render() {
@@ -233,7 +245,9 @@ class LoginScreen extends Component {
             </TapGestureHandler>
 
             <Animated.View style={styles.spotifyButton}>
-              <Text style={{fontSize:20,fontWeight:'bold'}}>CONTINUE WITH SPOTIFY</Text>
+              <TouchableOpacity onPress={() => this.handleContinueWithSpotify()}>
+                <Text style={{fontSize:20,fontWeight:'bold'}}>CONTINUE WITH SPOTIFY</Text>
+              </TouchableOpacity>
             </Animated.View>
 
             <Text style={styles.textRegister}>       ────────── Or ─────────</Text>

@@ -4,8 +4,8 @@ const scopesArr = ['user-modify-playback-state','user-read-currently-playing','u
                    'user-library-read','playlist-read-private','playlist-read-collaborative','playlist-modify-public',
                    'playlist-modify-private','user-read-recently-played','user-top-read'];
 const scopes = scopesArr.join(' ');
-const getSpotifyCredentials = require('../../data/getSpotifyCredentials');
-const setUserData = require('./setUserData');
+const getSpotifyCredentials = require('../../../data/getSpotifyCredentials');
+const setUserData = require('./../setUserData');
 
 const getUserAuthCode = async () => {
   try {
