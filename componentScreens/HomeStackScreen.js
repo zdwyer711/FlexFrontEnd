@@ -9,6 +9,7 @@ import {
 //import MiniPlayer from "./MiniPlayer";
 import PlayerScreen from "./PlayerScreen";
 import HomeScreen from "./HomeScreen";
+import SearchScreen from "./SearchScreen";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator,
   TransitionPresets,
@@ -43,6 +44,21 @@ class HomeStackScreen extends Component {
                     close: closeConfig
                   },
                   cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+                  headerTintColor: 'white',
+                  headerShown: false,
+                  headerTransparent: true
+              }}
+          />
+          <HomeStack.Screen name="Search" component={SearchScreen}
+              options={{
+                  headerStyle: {
+                    backgroundColor: '#272829',
+                  },
+                  transitionSpec: {
+                    open: config,
+                    close: closeConfig
+                  },
+                  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIO,
                   headerTintColor: 'white',
                   headerShown: false,
                   headerTransparent: true

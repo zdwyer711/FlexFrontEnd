@@ -9,9 +9,11 @@ import {
   SafeAreaView
 } from 'react-native';
 import MiniPlayer from "./MiniPlayer";
+import HomeScreenHeader from "./HomeScreenHeader";
 import { useNavigation } from '@react-navigation/native';
 import { PanGestureHandler, State } from "react-native-gesture-handler";
 import { getBottomSpace } from "react-native-iphone-x-helper";
+import { Icon } from "react-native-elements";
 
 // const getUserData = require('../client/user/getUserData');
 // const userRefreshToken = require('../client/user/userRefreshToken');
@@ -39,13 +41,53 @@ class HomeScreen extends Component {
     //   this.setState({ accessTokenAvailable: true });
     //   alert('Access Token is Available!');
     // }
+   //  React.useLayoutEffect(() => {
+   //   navigation.setOptions({
+   //     headerRight: () => (
+   //       <View style={styles.iconContainer}>
+   //              <Icon type="ionicon" name={Platform.OS === "ios" ? "ios-search" : "md-search"} />
+   //              <Icon type="ionicon" name={Platform.OS === "ios" ? "ios-heart" : "md-heart"} />
+   //              <Icon type="ionicon" name={Platform.OS === "ios" ? "ios-more" : "md-more"} />
+   //       </View>
+   //     ),
+   //   });
+   // }, navigation);
   }
+
+  // static navigationOptions = {
+  //    title: "Title",
+  //    headerLeft: (
+  //      <Icon
+  //        containerStyle={styles.icon}
+  //        type="ionicon"
+  //        name={Platform.OS === "ios" ? "ios-menu" : "md-menu"}
+  //      />
+  //    ),
+  //    headerRight: (
+  //      <View style={styles.iconContainer}>
+  //        <Icon type="ionicon" name={Platform.OS === "ios" ? "ios-search" : "md-search"} />
+  //        <Icon type="ionicon" name={Platform.OS === "ios" ? "ios-heart" : "md-heart"} />
+  //        <Icon type="ionicon" name={Platform.OS === "ios" ? "ios-more" : "md-more"} />
+  //      </View>
+  //    )
+  //  };
+  //
+  // React.useLayoutEffect(() => {
+  //      navigation.setOptions({
+  //        headerRight: () => (
+  //          <Button onPress={() => setCount(c => c + 1)} title="Update count" />
+  //        ),
+  //      });
+  //  }, [navigation, setCount]);
+
 
 render() {
    // Get it from props
    const { navigation } = this.props;
+
    return(
           <View style={styles.container}>
+             <HomeScreenHeader nav={navigation}/>
              <ActivityIndicator size='large' />
              <View style={styles.miniPlayerContainer}>
              <TouchableOpacity
@@ -65,9 +107,14 @@ export default HomeScreen;
 const styles = StyleSheet.create({
    container: {
      flex: 1,
-     alignItems: 'center',
-     justifyContent: 'center',
      backgroundColor: '#02071a'
+   },
+   headerContainer: {
+              position:"absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: 50
    },
    miniPlayerContainer: {
               position: "absolute",
@@ -82,5 +129,13 @@ const styles = StyleSheet.create({
               left: 0,
               right: 0,
               height: MINIMIZED_PLAYER_HEIGHT,
-   }
+   },
+   icon: {
+    paddingLeft: 10
+  },
+  iconContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    width: 120
+  }
 });
