@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as FileSystem from 'expo-file-system';
 import PlayerHeader from './PlayerHeader';
 import AlbumArt from './AlbumArt';
 import TrackDetails from './TrackDetails';
@@ -11,7 +12,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { Audio } from 'expo-av';
-
+import * as MediaLibrary from 'expo-media-library';
 
 
 //const window = new Window();
@@ -25,9 +26,54 @@ class PlayerScreen extends Component {
       selectedTrack: 0,
       repeatOn: false,
       shuffleOn: false,
+      source: null,
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+        // MediaLibrary.requestPermissionsAsync()
+        // const uri = 'http://192.168.1.65:3000/getFlexTracks/api/flex-tracks/5dff97bec4d4ab1318e3d94d';
+        // const asset = await MediaLibrary.createAssetAsync(uri);
+        // console.log("<----------------->");
+        // console.log(asset);
+        // console.log("<----------------->");
+
+        console.log("<----------------->");
+        console.log(FileSystem.documentDirectory);
+        const filePath = FileSystem.documentDirectory + 'currentTrack';
+        console.log("<----------------->");
+        const mkDir = FileSystem.makeDirectoryAsync(filePath);
+        console.log(mkDir);
+        console.log("<----------------->");
+        const remotePath = 'http://192.168.1.65:3000/getFlexTracks/api/flex-tracks/5dff97bec4d4ab1318e3d94d';
+        const trackCheck = await FileSystem.getInfoAsync(filePath);
+        console.log("<---TrackCheck--->")
+        console.log(trackCheck);
+        const currentTrack = await FileSystem.downloadAsync(remotePath,filePath);
+        console.log("<------------------>");
+        console.log(currentTrack);
+        console.log("<------------------>");
+        console.log(currentTrack.uri);
+        this.setState({
+          source: {
+            uri: currentTrack.uri
+          }
+        });
+  //       FileSystem.downloadAsync( remotePath, filePath);
+  //     .then(({ uri }) => {
+  //       Alert.alert(
+  //         "App",
+  //         uri
+  //       );
+  //     this.setState({uri: uri});
+  // })
+  // .catch(error => {
+  //   Alert.alert(
+  //     "App",
+  //     error
+  //   );
+  //   console.error(error);
+  // });
+
     // console.log(spotifyConnect);
     // alert(spotifyConnect);
     // spotifyConnect.onSpotifyWebPlaybackSDKReady = () => {
