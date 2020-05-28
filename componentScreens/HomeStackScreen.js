@@ -6,16 +6,14 @@ import {
   ActivityIndicator,
   Easing
 } from 'react-native';
-import MiniPlayer from "./MiniPlayer";
+//import MiniPlayer from "./MiniPlayer";
 import PlayerScreen from "./PlayerScreen";
 import HomeScreen from "./HomeScreen";
+import SearchScreen from "./SearchScreen";
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator,
   TransitionPresets,
   CardStyleInterpolators} from '@react-navigation/stack';
-
-const getUserData = require('../client/user/getUserData');
-const userRefreshToken = require('../client/user/userRefreshToken');
-const clearLocalUserData = require('../client/user/clearLocalUserData');
 
 class HomeStackScreen extends Component {
   render() {
@@ -46,6 +44,21 @@ class HomeStackScreen extends Component {
                     close: closeConfig
                   },
                   cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+                  headerTintColor: 'white',
+                  headerShown: false,
+                  headerTransparent: true
+              }}
+          />
+          <HomeStack.Screen name="Search" component={SearchScreen}
+              options={{
+                  headerStyle: {
+                    backgroundColor: '#272829',
+                  },
+                  transitionSpec: {
+                    open: config,
+                    close: closeConfig
+                  },
+                  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIO,
                   headerTintColor: 'white',
                   headerShown: false,
                   headerTransparent: true

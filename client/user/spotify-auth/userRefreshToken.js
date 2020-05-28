@@ -2,14 +2,14 @@ import { encode as btoa } from 'base-64';
 import axios from 'axios';
 //const getSpotifyCredentials = require('../../data/getSpotifyCredentials');
 //const getTokens = require('./getTokens');
-const setUserData = require('./setUserData');
-const getUserData = require('./getUserData');
+const setUserData = require('./../setUserData');
+const getUserData = require('./../getUserData');
 const getNewUserToken = require('./getNewUserToken');
-const clearLocalUserData = require('./clearLocalUserData');
+const clearLocalUserData = require('./../clearLocalUserData');
 
 const userRefreshToken = async () => {
   try {
-    //await clearLocalUserData('refreshToken');
+    await clearLocalUserData('refreshToken');
     const refreshToken = await getUserData('refreshToken');
     let refreshTokenEndpoint = 'http://192.168.1.65:3000/getTokens/api/spotify-tokens?refreshToken=' + refreshToken;
 

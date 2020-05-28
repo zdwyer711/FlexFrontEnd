@@ -1,11 +1,9 @@
-//import { encode as btoa } from 'base-64';
 import axios from 'axios';
-//const getSpotifyCredentials = require('../../data/getSpotifyCredentials');
-const responseCheck = require('../../data/responseCheck');
-const setUserData = require('./setUserData');
-const getUserData = require('./getUserData');
+
+const setUserData = require('./../setUserData');
+const getUserData = require('./../getUserData');
 const getUserAuthCode = require('./getUserAuthCode');
-const postNewUser = require('./postNewUser') ;
+const postNewUser = require('./../postNewUser') ;
 
 const getNewUserToken = async () => {
       const authorizationCode = await getUserAuthCode();

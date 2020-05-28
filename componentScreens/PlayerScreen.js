@@ -8,11 +8,14 @@ import {
   View,
   Text,
   StyleSheet,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import { Audio } from 'expo-av';
 
 
+
+//const window = new Window();
+const SpotifyConnect = require('./SpotifyConnect');
 
 class PlayerScreen extends Component {
 
@@ -25,10 +28,29 @@ class PlayerScreen extends Component {
   };
 
   componentDidMount() {
-    const spotify = require('https://sdk.scdn.co/spotify-player.js');
-    console.log(spotify);
-    alert(spotify);
-  }
+    // console.log(spotifyConnect);
+    // alert(spotifyConnect);
+    // spotifyConnect.onSpotifyWebPlaybackSDKReady = () => {
+    //   // You can now initialize Spotify.Player and use the SDK
+    //   alert('onSpotifyWebPlaybackSDKReady!');
+
+    // const script = window.document.createElement("script");
+    // script.src = "https://sdk.scdn.co/spotify-player.js";
+    // script.async = true;
+    // script.onload = () => this.scriptLoaded();
+    //
+    // window.document.body.appendChild(script);
+    // console.log(document);
+     };
+    //const spotify = require('https://sdk.scdn.co/spotify-player.js');
+    // const script = document.createElement("script");
+    // script.src = "https://sdk.scdn.co/spotify-player.js";
+    // script.async = true;
+    // script.onload = () => this.scriptLoaded();
+    //
+    // document.body.appendChild(script);
+    // console.log(document);
+    // alert(document);
 
   render() {
     const track = {

@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions, TextInput, TouchableOpacity } from 'react-native';
+import { Divider } from 'react-native-elements';
 import Svg, {Image, Circle, ClipPath} from 'react-native-svg';
 import Animated, { Easing } from 'react-native-reanimated';
 import { TapGestureHandler, State } from 'react-native-gesture-handler';
-const { width, height } = Dimensions.get('window');
 
+const expirationTimeCheck = require('../client/user/spotify-auth/expirationTimeCheck');
+const setUserData = require('../client/user/setUserData');
+const { width, height } = Dimensions.get('window');
+const closeButtonTop = -height / 2 ;
 const {
   Value,
   event,
@@ -52,6 +56,15 @@ function runTiming(clock, value, dest) {
   ]);
 }
 class LoginScreen extends Component {
+
+  state = {
+      phoneNumber: '',
+      email:'',
+      userName:'',
+      password:'',
+      confirmPassword:'',
+  };
+
   constructor() {
     super();
 
@@ -89,7 +102,7 @@ class LoginScreen extends Component {
 
     this.bgY = interpolate(this.buttonOpacity, {
       inputRange: [0, 1],
-      outputRange: [-height / 3 , -1],
+      outputRange: [-height / 2 , -1],
       extrapolate: Extrapolate.CLAMP
     });
 
@@ -118,6 +131,42 @@ class LoginScreen extends Component {
     });
 
   }
+
+  async componentDidMount() {
+    //const expirationCheck = await expirationTimeCheck();
+    //this.handleContinueWithSpotify(navigation);
+  }
+  handlePhoneChange = async (value) => {
+    this.setState({ phoneNumber: value});
+  }
+
+  handleEmailChange = async (value) => {
+    this.setState({ email: value });
+  }
+
+  handleUserNameChange = async (value) => {
+    this.setState({ userName: value });
+  }
+
+  handlePasswordChange = async (value) => {
+    this.setState({ password: value })
+  }
+
+  handleConfirmPasswordChange = async (value) => {
+    this.setState({ confirmPassword: value });
+  }
+
+  handleSubmitPress = async () => {
+    console.log(this.state);
+  }
+
+  handleContinueWithSpotify = async () => {
+      const expirationCheck = await expirationTimeCheck();
+      //console.log(navigation);
+      this.props.navigation.navigate('TabIndex');
+      //navigation.navigate('TabIndex');
+  }
+
   render() {
     const { navigation } = this.props;
     return (
@@ -139,7 +188,7 @@ class LoginScreen extends Component {
             <Circle r="50"/>
             </ClipPath>
           <Image
-              href={require('../assets/city-backdrop.jpg')}
+              href={require('../assets/chicago-backdrop.jpg')}
               height= {height}
               width= {width}
               preserveAspectRatio= "xMidYMid slice"
@@ -156,28 +205,28 @@ class LoginScreen extends Component {
                 transform: [{ translateY: this.buttonY }]
               }}
             >
-              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>SIGN IN</Text>
+              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>REGISTER</Text>
             </Animated.View>
           </TapGestureHandler>
           <Animated.View
             style={{
               ...styles.button,
-              backgroundColor: '#1DB954',
+              backgroundColor: '#cf0808',
               opacity: this.buttonOpacity,
               transform: [{ translateY: this.buttonY }]
             }}
           >
-            <TapGestureHandler onHandlerStateChange={this.onStateChange}>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
               <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white' }}>
-                SIGN IN WITH SPOTIFY
+                SIGN INTO FLEX
               </Text>
-            </TapGestureHandler>
+          </TouchableOpacity>
           </Animated.View>
           <Animated.View style={{
             zIndex:this.textInputZindex,
             opacity:this.textInputOpacity,
             transform:[{translateY:this.textInputY}],
-            height:height/3,
+            height:height/1.55,
             ...StyleSheet.absoluteFill,
             top:null,
             justifyContent:'center',
@@ -195,20 +244,51 @@ class LoginScreen extends Component {
               </Animated.View>
             </TapGestureHandler>
 
+            <Animated.View style={styles.spotifyButton}>
+              <TouchableOpacity onPress={() => this.handleContinueWithSpotify()}>
+                <Text style={{fontSize:20,fontWeight:'bold'}}>CONTINUE WITH SPOTIFY</Text>
+              </TouchableOpacity>
+            </Animated.View>
+
+            <Text style={styles.textRegister}>       ────────── Or ─────────</Text>
+
             <TextInput
-              placeholder="EMAIL"
+              placeholder="PHONE#"
               style={styles.textInput}
               placeholderTextColor="black"
+              value={this.state.phoneNumber}
+              onChangeText={this.handlePhoneChange}
+            />
+            <TextInput
+              placeholder="email#"
+              style={styles.textInput}
+              placeholderTextColor="black"
+              value={this.state.email}
+              onChangeText={this.handleEmailChange}
+            />
+            <TextInput
+              placeholder="USER"
+              style={styles.textInput}
+              placeholderTextColor="black"
+              value={this.state.userName}
+              onChangeText={this.handleUserNameChange}
             />
             <TextInput
               placeholder="PASSWORD"
               style={styles.textInput}
               placeholderTextColor="black"
+              value={this.state.password}
+              onChangeText={this.handlePasswordChange}
+            />
+            <TextInput
+              placeholder="CONFIRM PASSWORD"
+              style={styles.textInput}
+              placeholderTextColor="black"
+              value={this.state.confirmPassword}
+              onChangeText={this.handleConfirmPasswordChange}
             />
             <Animated.View style={styles.button}>
-              <TouchableOpacity onPress={() => navigation.navigate('TabIndex')}>
-              <Text style={{fontSize:20,fontWeight:'bold'}}>SIGN IN</Text>
-              </TouchableOpacity>
+              <Text style={{fontSize:20,fontWeight:'bold'}}>REGISTER</Text>
             </Animated.View>
           </Animated.View>
         </View>
@@ -225,6 +305,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   button: {
+    backgroundColor: 'white',
+    height: 70,
+    marginHorizontal: 20,
+    borderRadius: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 5,
+    shadowOffset:{
+      width: 2,
+      height: 2
+    },
+    shadowColor: 'black',
+    shadowOpacity: 0.2
+  },
+  signInButton: {
+    opacity: 100,
     backgroundColor: 'white',
     height: 70,
     marginHorizontal: 20,
@@ -257,12 +353,30 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2
   },
   textInput: {
-    height: 50,
+    height: 40,
     borderRadius: 25,
     borderWidth: 0.5,
     marginHorizontal: 20,
     paddingLeft: 10,
     marginVertical: 5,
     borderColor: 'rgba(0,0,0,0.2)',
+  },
+  spotifyButton: {
+    backgroundColor: '#1DB954',
+    height: 50,
+    marginHorizontal: 20,
+    borderRadius: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 10,
+    shadowOffset:{
+      width: 2,
+      height: 2
+    },
+    shadowColor: 'black',
+    shadowOpacity: 0.2
+  },
+  textRegister: {
+    paddingLeft: 10
   }
 });
