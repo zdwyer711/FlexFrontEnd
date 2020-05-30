@@ -37,27 +37,40 @@ class PlayerScreen extends Component {
         // console.log(asset);
         // console.log("<----------------->");
 
-        console.log("<----------------->");
-        console.log(FileSystem.documentDirectory);
-        const filePath = FileSystem.documentDirectory + 'currentTrack';
-        console.log("<----------------->");
-        const mkDir = FileSystem.makeDirectoryAsync(filePath);
-        console.log(mkDir);
+        // console.log("<----------------->");
+        // console.log(FileSystem.documentDirectory);
+        // const filePath = FileSystem.documentDirectory + 'currentTrack/';
+        // console.log("<----------------->");
+        // const mkDir = FileSystem.makeDirectoryAsync(filePath);
+        // console.log(mkDir);
         console.log("<----------------->");
         const remotePath = 'http://192.168.1.65:3000/getFlexTracks/api/flex-tracks/5dff97bec4d4ab1318e3d94d';
-        const trackCheck = await FileSystem.getInfoAsync(filePath);
-        console.log("<---TrackCheck--->")
-        console.log(trackCheck);
-        const currentTrack = await FileSystem.downloadAsync(remotePath,filePath);
+        //const remotePath = 'http://techslides.com/demos/sample-videos/small.mp4';
+        //const trackCheck = await FileSystem.getInfoAsync(filePath);
+
+        // console.log("<---TrackCheck--->")
+        // console.log(trackCheck);
+        //const currentTrack = await FileSystem.downloadAsync(remotePath,filePath);
+        const currentTrackUri = FileSystem.downloadAsync(
+              remotePath,
+              FileSystem.documentDirectory + 'track.wav'
+              ).then(({ uri }) => {
+                console.log('Finished downloading to ', uri);
+                return uri;
+              }).catch(error => {
+                console.error(error);
+                return error;
+              });
+
+        console.log("<--------currentTrack---------->");
+        console.log(currentTrackUri);
         console.log("<------------------>");
-        console.log(currentTrack);
-        console.log("<------------------>");
-        console.log(currentTrack.uri);
-        this.setState({
-          source: {
-            uri: currentTrack.uri
-          }
-        });
+        // console.log(currentTrack.uri);
+        // this.setState({
+        //   source: {
+        //     uri: currentTrack.uri
+        //   }
+        // });
   //       FileSystem.downloadAsync( remotePath, filePath);
   //     .then(({ uri }) => {
   //       Alert.alert(
