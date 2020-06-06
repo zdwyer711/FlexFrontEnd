@@ -51,20 +51,45 @@ class PlayerScreen extends Component {
         // console.log("<---TrackCheck--->")
         // console.log(trackCheck);
         //const currentTrack = await FileSystem.downloadAsync(remotePath,filePath);
-        const currentTrackUri = FileSystem.downloadAsync(
-              remotePath,
-              FileSystem.documentDirectory + 'track.wav'
-              ).then(({ uri }) => {
-                console.log('Finished downloading to ', uri);
-                return uri;
-              }).catch(error => {
-                console.error(error);
-                return error;
-              });
 
-        console.log("<--------currentTrack---------->");
-        console.log(currentTrackUri);
+        // const currentTrackUri = FileSystem.downloadAsync(
+        //       remotePath,
+        //       FileSystem.documentDirectory + 'track.wav'
+        //       ).then(({ uri }) => {
+        //         console.log('Finished downloading to ', uri);
+        //         return uri;
+        //       }).catch(error => {
+        //         console.error(error);
+        //         console.log("Audio File did not download");
+        //         return error;
+        //       });
+        //
+        // console.log("<--------currentTrack---------->");
+        // console.log(currentTrackUri);
+        // console.log("<------------------>");
+        const trackCheck = await FileSystem.getInfoAsync(FileSystem.documentDirectory + 'track.wav');
+        console.log(trackCheck);
         console.log("<------------------>");
+        const soundObject = new Audio.Sound();
+        console.log(trackCheck.uri);
+        var track = trackCheck.uri;
+        console.log("<------------------>");
+
+        // const playbackObject = await Audio.Sound.createAsync(
+        // //       { uri: trackCheck.uri },
+        // //       { shouldPlay: true }
+        // // );
+        // // console.log(playbackObject);
+        //
+        // await playbackObject.playAsync();
+        try {
+          //await soundObject.loadAsync(track);
+          await soundObject.loadAsync({ uri: FileSystem.documentDirectory + 'track.wav' }); 
+          await soundObject.playAsync();
+          // Your sound is playing!
+        } catch (error) {
+          // An error occurred!
+        }
         // console.log(currentTrack.uri);
         // this.setState({
         //   source: {
