@@ -67,29 +67,29 @@ class PlayerScreen extends Component {
         // console.log("<--------currentTrack---------->");
         // console.log(currentTrackUri);
         // console.log("<------------------>");
-        const trackCheck = await FileSystem.getInfoAsync(FileSystem.documentDirectory + 'track.wav');
-        console.log(trackCheck);
-        console.log("<------------------>");
-        const soundObject = new Audio.Sound();
-        console.log(trackCheck.uri);
-        var track = trackCheck.uri;
-        console.log("<------------------>");
-
-        // const playbackObject = await Audio.Sound.createAsync(
-        // //       { uri: trackCheck.uri },
-        // //       { shouldPlay: true }
-        // // );
-        // // console.log(playbackObject);
+        // const trackCheck = await FileSystem.getInfoAsync(FileSystem.documentDirectory + 'track.wav');
+        // console.log(trackCheck);
+        // console.log("<------------------>");
+        // const soundObject = new Audio.Sound();
+        // console.log(trackCheck.uri);
+        // var track = trackCheck.uri;
+        // console.log("<------------------>");
         //
-        // await playbackObject.playAsync();
-        try {
-          //await soundObject.loadAsync(track);
-          await soundObject.loadAsync({ uri: FileSystem.documentDirectory + 'track.wav' }); 
-          await soundObject.playAsync();
-          // Your sound is playing!
-        } catch (error) {
-          // An error occurred!
-        }
+        // // const playbackObject = await Audio.Sound.createAsync(
+        // // //       { uri: trackCheck.uri },
+        // // //       { shouldPlay: true }
+        // // // );
+        // // // console.log(playbackObject);
+        // //
+        // // await playbackObject.playAsync();
+        // try {
+        //   //await soundObject.loadAsync(track);
+        //   await soundObject.loadAsync({ uri: FileSystem.documentDirectory + 'track.wav' });
+        //   await soundObject.playAsync();
+        //   // Your sound is playing!
+        // } catch (error) {
+        //   // An error occurred!
+        // }
         // console.log(currentTrack.uri);
         // this.setState({
         //   source: {
