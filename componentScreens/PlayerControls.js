@@ -6,15 +6,21 @@ import {
   TouchableOpacity,
   Image
 } from 'react-native';
+import { Audio } from 'expo-av';
+import * as FileSystem from 'expo-file-system';
 
 class PlayerControls extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      paused: false,
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     paused: false,
+  //
+  //   };
+  // }
 
-    };
+  state = {
+    paused: true
   }
 
   render() {
@@ -53,35 +59,65 @@ class PlayerControls extends Component {
     //   }
     // }
 
-     _onPressPlay = async () => {
-       const soundObject = new Audio.Sound();
-       console.log("Made it to a onPess function!");
-       console.log(FileSystem.documentDirectory + 'track.wav');
-       try {
-         await soundObject.loadAsync({ uri: FileSystem.documentDirectory + 'track.wav' });
-         await soundObject.playAsync();
-         this.setState({ paused: false});
-         //props.paused =
-         // Your sound is paused!
-       } catch (error) {
-         // An error occurred!
-       }
-     }
+    // _onPressPlay = () => {
+    //     const soundObject = new Audio.Sound();
+    //     console.log("Made it to a onPessPlay function!");
+    //     console.log(FileSystem.documentDirectory + 'track.wav');
+    //     try {
+    //       soundObject.loadAsync({ uri: FileSystem.documentDirectory + 'track.wav' });
+    //       soundObject.playAsync();
+    //       this.setState({ paused: false});
+    //       //props.paused =
+    //       // Your sound is paused!
+    //     } catch (error) {
+    //       // An error occurred!
+    //     }
+    //   }
 
-     _onPressPause = async () => {
-       const soundObject = new Audio.Sound();
-       console.log("Made it to a onPess function!");
-       console.log(FileSystem.documentDirectory + 'track.wav');
-       try {
-         await soundObject.loadAsync({ uri: FileSystem.documentDirectory + 'track.wav' });
-         await soundObject.pausedAync();
-         this.setState({ paused:true});
-         //props.paused = false;
-         // Your sound is playing!
-       } catch (error) {
-         // An error occurred!
-       }
-     }
+      // _onPressPause = () => {
+      //   const soundObject = new Audio.Sound();
+      //   console.log("Made it to a onPessPause function!");
+      //   console.log(FileSystem.documentDirectory + 'track.wav');
+      //   try {
+      //     soundObject.loadAsync({ uri: FileSystem.documentDirectory + 'track.wav' });
+      //     soundObject.pausedAync();
+      //     this.setState({ paused:true});
+      //     //props.paused = false;
+      //     // Your sound is playing!
+      //   } catch (error) {
+      //     // An error occurred!
+      //   }
+      // }
+
+     // _onPressPlay = async () => {
+     //   // const soundObject = new Audio.Sound();
+     //   // console.log("Made it to a onPess function!");
+     //   // console.log(FileSystem.documentDirectory + 'track.wav');
+     //   // try {
+     //   //   await soundObject.loadAsync({ uri: FileSystem.documentDirectory + 'track.wav' });
+     //   //   await soundObject.playAsync();
+     //   //   this.setState({ paused: false});
+     //   //   //props.paused =
+     //   //   // Your sound is paused!
+     //   // } catch (error) {
+     //   //   // An error occurred!
+     //   // }
+     // }
+
+     // _onPressPause = async () => {
+     //   // const soundObject = new Audio.Sound();
+     //   // console.log("Made it to a onPess function!");
+     //   // console.log(FileSystem.documentDirectory + 'track.wav');
+     //   // try {
+     //   //   await soundObject.loadAsync({ uri: FileSystem.documentDirectory + 'track.wav' });
+     //   //   await soundObject.pausedAync();
+     //   //   this.setState({ paused:true});
+     //   //   //props.paused = false;
+     //   //   // Your sound is playing!
+     //   // } catch (error) {
+     //   //   // An error occurred!
+     //   // }
+     // }
 
     // _onPressButton() {
     //   alert('You tapped the button!')
@@ -102,12 +138,41 @@ class PlayerControls extends Component {
     </TouchableOpacity>
     <View style={{width: 20}} />
     {!this.state.paused ?
-      <TouchableOpacity onPres={() => this._onPressPlay()}>
+      <TouchableOpacity onPress={async() => {
+          const soundObject = new Audio.Sound();
+          console.log("onPressPause has been pressed!");
+          console.log(FileSystem.documentDirectory + 'track.wav');
+          try {
+            await soundObject.loadAsync({ uri: FileSystem.documentDirectory + 'track.wav' });
+            await soundObject.pauseAsync();
+            this.setState({ paused: true });
+            //props.paused =
+            // Your sound is paused!
+          } catch (error) {
+            // An error occurred!
+          }
+      }}>
         <View style={styles.playButton}>
           <Image source={require('./img/ic_pause_white_48pt.png')}/>
         </View>
       </TouchableOpacity> :
-      <TouchableOpacity onPress={() => this._onOressPause()}>
+      <TouchableOpacity onPress={async() => {
+          const soundObject = new Audio.Sound();
+          console.log("onPressPlay has been pressed!");
+          console.log(FileSystem.documentDirectory + 'track.wav');
+          try {
+            await soundObject.loadAsync({ uri: FileSystem.documentDirectory + 'track.wav' });
+            await soundObject.playAsync();
+            this.setState({ paused: false });
+            //props.paused = false;
+            // Your sound is playing!
+          } catch (error) {
+            // An error occurred!
+          }
+          // this.setState({ paused: false });
+          console.log("state of paused: ")
+          console.log(this.state.paused);
+      }}>
         <View style={styles.playButton}>
           <Image source={require('./img/ic_play_arrow_white_48pt.png')}/>
         </View>
