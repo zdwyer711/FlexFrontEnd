@@ -20,8 +20,64 @@ class PlayerControls extends Component {
   // }
 
   state = {
-    paused: true
+    paused: false
   }
+
+  async componentDidMount(){
+    const playbackObject = await Audio.Sound.createAsync(
+      { uri: FileSystem.documentDirectory + 'track.wav' },
+      { shouldPlay: true }
+    );
+    this.playbackObject = playbackObject;
+    this.setState({
+      paused: false
+    });
+  }
+
+  async _resumeTrack() {
+    // const { sound } = await Audio.Sound.create(
+    //   source,
+    //   {
+    //     shouldPlay: true,
+    //     isLooping: true,
+    //   },
+    //   this._updateScreenForSoundStatus,
+    // );
+    // const playbackObject = await Audio.Sound.createAsync(
+    //   { uri: FileSystem.documentDirectory + 'track.wav' },
+    //   { shouldPlay: true }
+    // );
+    // this.playbackObject = playbackObject;
+    // this.setState({
+    //   paused: false
+    // });
+    console.log("playing.....");
+    await this.playbackObject.sound.playAsync();
+    this.setState({ paused: false });
+    console.log("playing!");
+  }
+
+  async _pauseTrack() {
+    console.log(this.playbackObject);
+    console.log("pausing.....");
+    await this.playbackObject.sound.pauseAsync();
+    this.setState({ paused: true });
+    console.log("paused!");
+  }
+
+  _playAndPause = async () => {
+    if(this.state.paused){
+       console.log("1");
+       this._resumeTrack();
+    } else {
+      console.log("0");
+      this._pauseTrack();
+    }
+ }
+
+  // componentDidMount() {
+  //
+  // }
 
   render() {
     // const props = {
@@ -30,6 +86,10 @@ class PlayerControls extends Component {
     // }
 
     const shuffleOn = true;
+    // const playbackObject = await Audio.Sound.createAsync(
+    //   { uri: FileSystem.documentDirectory + 'track.wav' },
+    //   { shouldPlay: true }
+    // );
     //const paused = null;
 
     // onPressPlay = async() => {
@@ -138,41 +198,12 @@ class PlayerControls extends Component {
     </TouchableOpacity>
     <View style={{width: 20}} />
     {!this.state.paused ?
-      <TouchableOpacity onPress={async() => {
-          const soundObject = new Audio.Sound();
-          console.log("onPressPause has been pressed!");
-          console.log(FileSystem.documentDirectory + 'track.wav');
-          try {
-            await soundObject.loadAsync({ uri: FileSystem.documentDirectory + 'track.wav' });
-            await soundObject.pauseAsync();
-            this.setState({ paused: true });
-            //props.paused =
-            // Your sound is paused!
-          } catch (error) {
-            // An error occurred!
-          }
-      }}>
+      <TouchableOpacity onPress={this._playAndPause}>
         <View style={styles.playButton}>
           <Image source={require('./img/ic_pause_white_48pt.png')}/>
         </View>
       </TouchableOpacity> :
-      <TouchableOpacity onPress={async() => {
-          const soundObject = new Audio.Sound();
-          console.log("onPressPlay has been pressed!");
-          console.log(FileSystem.documentDirectory + 'track.wav');
-          try {
-            await soundObject.loadAsync({ uri: FileSystem.documentDirectory + 'track.wav' });
-            await soundObject.playAsync();
-            this.setState({ paused: false });
-            //props.paused = false;
-            // Your sound is playing!
-          } catch (error) {
-            // An error occurred!
-          }
-          // this.setState({ paused: false });
-          console.log("state of paused: ")
-          console.log(this.state.paused);
-      }}>
+      <TouchableOpacity onPress={this._playAndPause}>
         <View style={styles.playButton}>
           <Image source={require('./img/ic_play_arrow_white_48pt.png')}/>
         </View>
